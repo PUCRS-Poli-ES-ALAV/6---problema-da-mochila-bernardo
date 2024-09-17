@@ -1,6 +1,5 @@
-public class Main{
+public class Main {
     public static void main(String[] args) {
-
 
         Algoritmos a = new Algoritmos();
 
@@ -25,24 +24,21 @@ public class Main{
         // System.out.println(a.memoizedFibo(1000));
         // System.out.println(a.memoizedFibo(10000));
 
+        // teste 1
+        int[] price = { 92, 57, 49, 68, 60, 43, 67, 84, 87, 72 };
+        int[] weight = { 23, 31, 29, 44, 53, 38, 63, 85, 89, 82 };
 
-        //teste 1
-        int [] price = {92, 57, 49, 68, 60, 43, 67, 84, 87, 72};
-        int [] weight = {23, 31, 29, 44, 53, 38, 63, 85, 89, 82};
-
-        //teste 2
+        // teste 2
 
         // int [] price = {50, 50, 64, 46, 50, 05};
         // int [] weight = {56, 59, 80, 64, 75, 17};
 
-
         System.out.println("Maior valor: " + a.knapSack(165, price, weight, price.length));
 
-      
         int[][] itens = new int[price.length + 1][2];
         for (int i = 0; i < price.length; i++) {
             itens[i + 1][0] = weight[i]; // Peso
-            itens[i + 1][1] = price[i];  // Valor
+            itens[i + 1][1] = price[i]; // Valor
         }
 
         itens[0][0] = 0;
@@ -50,10 +46,15 @@ public class Main{
 
         System.out.println("Maior valor(otimizado): " + a.knapSackBottomUp(price.length, 165, itens));
 
+        String d = "casa";
+        String e = "meta";
+
+        System.out.println(a.distRec(d, e, d.length() - 1, e.length() - 1));
+        System.out.println(a.distEdProgDina(d, e));
+
         long endTime = System.nanoTime();
         long duration = endTime - startTime;
-        System.out.println("Tempo de execução: " + duration/1000000 + "ms");
-    }  
-
+        System.out.println("Tempo de execução: " + duration / 1000000 + "ms");
+    }
 
 }

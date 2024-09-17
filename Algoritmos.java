@@ -58,26 +58,78 @@ public class Algoritmos {
 
     }
 
-public int knapSackBottomUp(int n, int capacity, int[][] itens){
-    int[][] maxTab = new int[n+1][capacity+1];
+    public int knapSackBottomUp(int n, int capacity, int[][] itens) {
+        int[][] maxTab = new int[n + 1][capacity + 1];
 
-    for (int i = 0; i <= n; i++) {
-        for (int j = 0; j <= capacity; j++) {
-            maxTab[i][j] = 0;
-        }
-    }
-
-    for(int i = 1; i <= n; i++){
-        for(int j = 1; j <= capacity; j++){
-            if(itens[i][0] <= j) {
-                maxTab[i][j] = Math.max(maxTab[i-1][j], itens[i][1] + maxTab[i-1][j - itens[i][0]]);
-            }
-            else{
-                maxTab[i][j] = maxTab[i-1][j];
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j <= capacity; j++) {
+                maxTab[i][j] = 0;
             }
         }
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= capacity; j++) {
+                if (itens[i][0] <= j) {
+                    maxTab[i][j] = Math.max(maxTab[i - 1][j], itens[i][1] + maxTab[i - 1][j - itens[i][0]]);
+                } else {
+                    maxTab[i][j] = maxTab[i - 1][j];
+                }
+            }
+        }
+        return maxTab[n][capacity];
+
     }
-    return maxTab[n][capacity];
+
+    public int distRec(String s, String t, int i, int j) {
+        if (i == 0 && j == 0) {
+            return 0;
+        }
+        if (i == 0) {
+            return j;
+        }
+        if (j == 0) {
+            return i;
+        }
+
+        if (s.charAt(i) == s.charAt(i)) {
+            distRec(s, t, i - 1, j - 1);
+        }
+
+        return Math.min(Math.min(distRec(s, t, i - 1, j) + 1, distRec(s, t, i, j - 1) + 1),
+                distRec(s, t, i - 1, j - 1) + 1);
+
+    }
+
+    public int distEdProgDina(String a, String b) {
+        int m = a.length();
+        int n = b.length();
+        int[][] matriz = new int[m + 1][n + 1];
+        int custoExtra;
+        matriz[0][0] = 0;
+
+        for (int i = 1; i <= m; i++) {
+            matriz[i][0] = matriz[i - 1][0] + 1;
+        }
+
+        for (int i = 1; i <= n; i++) {
+            matriz[0][i] = matriz[0][i - 1] + 1;
+        }
+
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (a.charAt(i - 1) == b.charAt(j - 1)) {
+                    custoExtra = 0;
+                } else {
+                    custoExtra = 1;
+                }
+
+                matriz[i][j] = Math.min(matriz[i - 1][j] + 1,
+                        Math.min(matriz[i][j - 1] + 1, matriz[i - 1][j - 1] + custoExtra));
+
+            }
+        }
+
+        return matriz[m][n];
 
     }
 
